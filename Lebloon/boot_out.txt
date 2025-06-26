@@ -1,0 +1,3 @@
+Adafruit CircuitPython 9.2.7 on 2025-04-01; Adafruit Feather Bluefruit Sense with nRF52840
+Board ID:feather_bluefruit_sense
+UID:0F05735DD2F2CA4E
