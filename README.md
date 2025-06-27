@@ -121,5 +121,16 @@ d. drag the uf2 file into this folder
 Tutorial: https://learn.adafruit.com/adafruit-feather-m4-express-atsamd51/circuitpython
 File can be found: https://circuitpython.org/board/feather_m4_express/  
 
-a. Replace and add the files in LeGround Station into the root dir of the microcntroller. 
+a. Replace and add the files in LeGround Station into the root dir of the microcntroller.  
+
+#### Plotting: 
+
+1. Place the logged data from the sd cards into the data folder. 
+2. In the plot.py code look for the vraiable FILENAME: change that filename path to the one you want to analyze 
+3. run plot.py 
+
+The sd cards will create a new log at power up, usally differentiated with an increasing number at the end. The larger the number the more recent the log is.  
+
+Please view the data folder README for slightly more info
+
 
