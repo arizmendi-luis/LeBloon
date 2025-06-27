@@ -90,7 +90,7 @@ For the ground station however it assumes the use of a adafruit
 This is intended to be a short guide to help one get the devices up and running to understand the code written and how these steps work closer please refer to the mentioned adafruit tutorials and read the comments and code in the repository :) (excerise for the reader)
 
 #### Payload
-Step 1: Install udf files    
+Step 1: Install uf2 files    
 
 a. From uf2 files folder select the: adafruit-circuitpython-feather_bluefruit_sense-en_US-9.2.7 (2).uf2 file
 b. Plug in the microcontroller to you laptop via USB
