@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 import pandas as pd 
 import folium  
 from folium import plugins
-from branca.colormap import linear
+from branca.colormap import linear 
+
+FILENAME = 'test_log19.txt'
 
 def parse_data_line(line): 
     parts = [p.strip() for p in line.replace(',', ' ').split()]
@@ -114,8 +116,11 @@ def parse_file(path):
                     data['scd_humidity'].append(numbers[5])
                     data['gps_lat'].append(numbers[6])
                     data['gps_long'].append(numbers[7])
-                    data['gps_alt'].append(numbers[8])
                     data['time'].append(numbers[-1]) 
+                    if len(numbers) > 9: 
+                        data['gps_alt'].append(numbers[8]) 
+                    else:  
+                        data['gps_alt'].append(0.0) 
             elif line: 
                 vals = parse_IMU_line(line)  
                 if vals[-1] == 'temp': 
@@ -153,7 +158,7 @@ def parse_file(path):
                 print(f"Skipping empty line {i+1}")   
     return data
 
-def plot_data(data, x, ys, x_label='X-axis', y_label='Y-axis', title='Weather Balloon Data'):  
+def plot_data(data, x, ys, x_label='X-axis', y_label='Y-axis', title='Weather Balloon Data', save_path=None):  
     plt.figure(figsize=(10, 6)) 
     for y in ys: 
         plt.scatter(data[x], data[y], label=y, s=10)  
@@ -161,24 +166,30 @@ def plot_data(data, x, ys, x_label='X-axis', y_label='Y-axis', title='Weather Ba
     plt.ylabel(y_label)
     plt.title(title) 
     plt.legend()
-    plt.grid()
-    plt.show()
+    plt.grid() 
+
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"✅ Plot saved to {save_path}") 
+
+    plt.show() 
+    
 
 
-FILENAME = 'data/test_log11.txt'
-data = parse_file(FILENAME)  
+FILENAME_PATH = 'data/' + FILENAME 
+data = parse_file(FILENAME_PATH)  
 
 plot_data(data, 'time', ['bmp280_temp', 'scd_temp', 'imu_temp'],
-          x_label='Time (s)', y_label='Temperature (C)', title='Temperature Data)')  
+          x_label='Time (s)', y_label='Temperature (C)', title='Temperature Data', save_path='data/temperature_plot' + FILENAME +'.png')  
 
 plot_data(data, 'bmp280_pressure', ['bmp280_alt', 'gps_alt'], x_label='Pressure (hPa)',
-          y_label='Altitude (m)', title='Pressure vs Altitude') 
+          y_label='Altitude (m)', title='Pressure vs Altitude', save_path='data/pressure_v_altitude_plot' + FILENAME +'.png') 
 
 plot_data(data, 'time', ['scd_co2'], x_label='Time (s)', y_label='CO₂ Concentration (ppm)',
-          title='CO₂ Concentration Over Time') 
+          title='CO₂ Concentration Over Time', save_path='data/c02_v_time' + FILENAME +'.png') 
 
 plot_data(data, 'time', ['scd_humidity'], x_label='Time (s)', y_label='Humidity (%)',
-          title='Humidity Over Time') 
+          title='Humidity Over Time', save_path='data/humitity_v_time' + FILENAME +'.png') 
 
 plot_data(data, 'time', ['imu_lin_acc_x', 'imu_lin_acc_y', 'imu_lin_acc_z'],
           x_label='Time (s)', y_label='Acceleration (m/s²)', title='IMU Linear Acceleration Data') 
@@ -211,7 +222,7 @@ else:
     folium.Marker(valid_coords[-1], popup="End", icon=folium.Icon(color="red")).add_to(fmap)
 
     # Save to HTML
-    fmap.save("gps_path_map.html")
+    fmap.save("data/gps_path_map" + FILENAME + ".html")
     print("✅ Map with scatter points saved to gps_path_map.html")
 
 gps_points = [
@@ -250,7 +261,7 @@ else:
     folium.Marker([lats[-1], lons[-1]], popup="End", icon=folium.Icon(color="red")).add_to(fmap_co2)
 
     # Save map
-    fmap_co2.save("gps_co2_map.html")
+    fmap_co2.save("data/gps_co2_map" + FILENAME + ".html")
     print("✅ CO₂-colored map saved to gps_co2_map.html") 
 
 coords_humidity = [
@@ -278,7 +289,7 @@ if coords_humidity:
             popup=f'Humidity: {hum:.2f}%'
         ).add_to(fmap_hum)
 
-    fmap_hum.save("gps_humidity_map.html")
+    fmap_hum.save("data/gps_humidity_map" + FILENAME + ".html")
     print("✅ Humidity map saved to gps_humidity_map.html")
 else:
     print("❌ No valid GPS data for humidity mapping.")
