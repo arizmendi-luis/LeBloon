@@ -82,10 +82,10 @@ while True:
         scd_data = scd.sensor_read()
         gps.sensor_read()
         bno_data = BNO.sensor_read()
-
+        # bmp280_temp, bmp280_pressure, bmp280_alt, scd_co2, scd_temp, scd_humidity, gps_lat, gps_long, gps_alt, curr_time
         data = (f"{round(bmp280.temp, acc)} {round(bmp280.pressure, acc)} {round(bmp280.alt, acc)}\
                 {round(scd.co2, acc)} {round(scd.temp, acc)} {round(scd.humidity, acc)}\
-                {gps.lat} {gps.long}, {curr_time}")
+                {gps.lat} {gps.long}, {gps.alt }, {curr_time}")
 
         print(data)
         sdcard.logsd(data, filename)

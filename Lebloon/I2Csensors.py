@@ -82,7 +82,8 @@ class GPS:
         self.gps.send_command(b"PMTK220,1000")
 
         self.lat = 0
-        self.long = 0
+        self.long = 0 
+        self.alt = 0
 
     def sensor_read(self):
         self.gps.update()
