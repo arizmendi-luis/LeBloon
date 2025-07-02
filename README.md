@@ -133,4 +133,21 @@ The sd cards will create a new log at power up, usally differentiated with an in
 
 Please view the data folder README for slightly more info
 
+##### Soldering:
+
+    1. Ground Station
+    
+      Board View:
+![image](https://github.com/user-attachments/assets/90bf8852-6631-4f14-86d7-1aa07f7ecd71)
+      Wiring Diagram:
+![image](https://github.com/user-attachments/assets/a65ee7a5-722f-4d7e-a3a1-475dcf70e560)
+    
+    2. LeBloon
+
+    Board View:
+![Screenshot 2025-07-02 092339](https://github.com/user-attachments/assets/8e68d9f8-974e-4c21-9f27-248bb2de8723)
+    Wiring Diagram:
+![image](https://github.com/user-attachments/assets/989960a3-8dc1-498f-a984-5d41cd179bb6)
+
+Boards serve guides to keep soldering simple. Match the breakout Boards to the correct pinholes. Wiring Diagram is shown to help match pinholes to breakout board legs.
 
